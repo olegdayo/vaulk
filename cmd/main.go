@@ -6,6 +6,7 @@ import (
 	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/vault/api"
 	"github.com/hashicorp/vault/sdk/plugin"
+	"github.com/olegdayo/vaulk/internal/backend"
 )
 
 func main() {
@@ -21,7 +22,7 @@ func main() {
 	tlsProviderFunc := api.VaultPluginTLSProvider(tlsConfig)
 
 	err := plugin.Serve(&plugin.ServeOpts{
-		BackendFactoryFunc: nil,
+		BackendFactoryFunc: backend.Factory,
 		TLSProviderFunc:    tlsProviderFunc,
 	})
 	if err != nil {
